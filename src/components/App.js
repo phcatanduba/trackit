@@ -1,7 +1,7 @@
-import styled from 'styled-components';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Login from './Login';
 import SignIn from './SignIn';
+import Habits from './Habits';
 
 export default function App() {
     return (
@@ -12,8 +12,13 @@ export default function App() {
                 </Route>
             </Switch>
             <Switch>
-                <Route path="/cadastro" exact>
+                <Route path="/cadastro">
                     <SignIn />
+                </Route>
+            </Switch>
+            <Switch>
+                <Route path="/habitos">
+                    <Habits />
                 </Route>
             </Switch>
         </BrowserRouter>

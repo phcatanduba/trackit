@@ -14,25 +14,31 @@ export default function InputSignUp() {
         history.replace('/');
     }
 
+    function disable() {
+        setDisableButton(true);
+    }
+
+    function enable() {
+        setDisableButton(false);
+    }
+
+    function handleError(error) {
+        console.log(error);
+        enable();
+        alert('ERRO AO SE CADASTRAR!!');
+    }
+
     function register() {
         const promise = axios.post(
             'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up',
             { email, name, image, password }
         );
 
-        const disable = () => {
-            setDisableButton(true);
-        };
-
-        disable();
-
         promise.then(() => {
             back();
         });
 
-        promise.catch(() => {
-            alert('ERRO AO SE CADASTRAR!!');
-        });
+        promise.catch(handleError);
     }
 
     return (
@@ -74,6 +80,7 @@ export default function InputSignUp() {
                 disabled={disableButton}
                 type="submit"
                 onClick={() => {
+                    disable();
                     register();
                 }}
             >
