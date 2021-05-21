@@ -42,51 +42,53 @@ export default function InputSignUp() {
     }
 
     return (
-        <Inputs>
-            <input
-                disabled={disableButton}
-                placeholder="email"
-                value={email}
-                onChange={(e) => {
-                    setEmail(e.target.value);
-                }}
-            ></input>
-            <input
-                disabled={disableButton}
-                placeholder="senha"
-                type="password"
-                value={password}
-                onChange={(e) => {
-                    setPassword(e.target.value);
-                }}
-            ></input>
-            <input
-                disabled={disableButton}
-                placeholder="nome"
-                value={name}
-                onChange={(e) => {
-                    setName(e.target.value);
-                }}
-            ></input>
-            <input
-                disabled={disableButton}
-                placeholder="foto"
-                value={image}
-                onChange={(e) => {
-                    setImage(e.target.value);
-                }}
-            ></input>
-            <button
-                disabled={disableButton}
-                type="submit"
-                onClick={() => {
-                    disable();
-                    register();
-                }}
-            >
-                entrar
-            </button>
-        </Inputs>
+        <form>
+            <Inputs>
+                <input
+                    disabled={disableButton}
+                    placeholder="email"
+                    value={email}
+                    onChange={(e) => {
+                        setEmail(e.target.value);
+                    }}
+                ></input>
+                <input
+                    disabled={disableButton}
+                    placeholder="senha"
+                    type="password"
+                    value={password}
+                    onChange={(e) => {
+                        setPassword(e.target.value);
+                    }}
+                ></input>
+                <input
+                    disabled={disableButton}
+                    placeholder="nome"
+                    value={name}
+                    onChange={(e) => {
+                        setName(e.target.value);
+                    }}
+                ></input>
+                <input
+                    disabled={disableButton}
+                    placeholder="foto"
+                    value={image}
+                    onChange={(e) => {
+                        setImage(e.target.value);
+                    }}
+                ></input>
+                <button
+                    disabled={disableButton}
+                    type="submit"
+                    onClick={() => {
+                        disable();
+                        register();
+                    }}
+                >
+                    entrar
+                </button>
+            </Inputs>
+        </form>
     );
 }
 

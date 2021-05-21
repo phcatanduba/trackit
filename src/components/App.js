@@ -1,14 +1,19 @@
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { useContext, useState } from 'react';
 import Login from './Login';
 import SignIn from './SignIn';
-import Habits from './Habits';
+import Today from './Today';
+import React from 'react';
+import UserContext from '../context/UserContext';
 
 export default function App() {
+    const [user, setUser] = useState({});
+
     return (
         <BrowserRouter>
             <Switch>
                 <Route path="/" exact>
-                    <Login />
+                    <Login setUser={setUser} />
                 </Route>
             </Switch>
             <Switch>
@@ -17,8 +22,10 @@ export default function App() {
                 </Route>
             </Switch>
             <Switch>
-                <Route path="/habitos">
-                    <Habits />
+                <Route path="/hoje">
+                    <UserContext.Provider value={user}>
+                        <Today />
+                    </UserContext.Provider>
                 </Route>
             </Switch>
         </BrowserRouter>

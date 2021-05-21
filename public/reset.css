@@ -3,6 +3,8 @@
    License: none (public domain)
 */
 
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Deca&display=swap');
+
 html,
 body,
 div,
@@ -126,4 +128,8 @@ q:after {
 table {
     border-collapse: collapse;
     border-spacing: 0;
+}
+
+* {
+    font-family: 'Lexend Deca', sans-serif;
 }

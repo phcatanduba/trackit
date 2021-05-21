@@ -1,11 +1,11 @@
 import styled from 'styled-components';
-import { Link, useHistory } from 'react-router-dom';
-import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useState, useContext } from 'react';
 import axios from 'axios';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import Loader from 'react-loader-spinner';
 
-export default function InputLogin() {
+export default function InputLogin({ setUser }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [disableButton, setDisableButton] = useState(false);
@@ -28,8 +28,9 @@ export default function InputLogin() {
             }
         );
 
-        promise.then(() => {
-            history.push('./habitos');
+        promise.then((response) => {
+            setUser(response.data);
+            history.push('./hoje');
         });
 
         promise.catch(() => {
@@ -39,40 +40,42 @@ export default function InputLogin() {
     }
 
     return (
-        <Inputs>
-            <input
-                value={email}
-                placeholder="email"
-                disabled={disableButton}
-                onChange={(e) => {
-                    setEmail(e.target.value);
-                }}
-            ></input>
-            <input
-                value={password}
-                onChange={(e) => {
-                    setPassword(e.target.value);
-                }}
-                placeholder="senha"
-                disabled={disableButton}
-                type="password"
-            ></input>
+        <form>
+            <Inputs>
+                <input
+                    value={email}
+                    placeholder="email"
+                    disabled={disableButton}
+                    onChange={(e) => {
+                        setEmail(e.target.value);
+                    }}
+                ></input>
+                <input
+                    value={password}
+                    onChange={(e) => {
+                        setPassword(e.target.value);
+                    }}
+                    placeholder="senha"
+                    disabled={disableButton}
+                    type="password"
+                ></input>
 
-            <button
-                type="submit"
-                disabled={disableButton}
-                onClick={() => {
-                    disable();
-                    login();
-                }}
-            >
-                {!disableButton ? (
-                    'entrar'
-                ) : (
-                    <Loader type="ThreeDots" color="white"></Loader>
-                )}
-            </button>
-        </Inputs>
+                <button
+                    type="submit"
+                    disabled={disableButton}
+                    onClick={() => {
+                        disable();
+                        login();
+                    }}
+                >
+                    {!disableButton ? (
+                        'entrar'
+                    ) : (
+                        <Loader type="ThreeDots" color="white"></Loader>
+                    )}
+                </button>
+            </Inputs>
+        </form>
     );
 }
 
