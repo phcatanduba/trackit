@@ -118,12 +118,12 @@ export default function Habits() {
                                             <WeekDay
                                                 key={j}
                                                 bgColor={
-                                                    !habit.days.includes(j + 1)
+                                                    !habit.days.includes(j)
                                                         ? bgColor
                                                         : txtColor
                                                 }
                                                 txtColor={
-                                                    !habit.days.includes(j + 1)
+                                                    !habit.days.includes(j)
                                                         ? txtColor
                                                         : bgColor
                                                 }

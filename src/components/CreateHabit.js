@@ -72,12 +72,12 @@ export default function CreateHabit({ addHabit, getHabits }) {
                                 let array = [...wasClicked];
                                 if (!array[i]) {
                                     array[i] = true;
-                                    habitDays.push(i + 1);
+                                    habitDays.push(i);
                                     setWasClicked(array);
                                 } else {
                                     array[i] = false;
                                     habitDays = habitDays.filter(
-                                        (day) => day !== i + 1
+                                        (day) => day !== i
                                     );
                                     setWasClicked(array);
                                 }

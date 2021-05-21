@@ -7,9 +7,11 @@ import React from 'react';
 import Today from './Today';
 import Historic from './Historic';
 import UserContext from '../context/UserContext';
+import PercentageContext from '../context/PercentageContext';
 
 export default function App() {
     const [user, setUser] = useState({});
+    const [percentage, setPercentage] = useState(0);
 
     return (
         <BrowserRouter>
@@ -26,21 +28,33 @@ export default function App() {
             <Switch>
                 <Route path="/habitos">
                     <UserContext.Provider value={user}>
-                        <HabitsPage />
+                        <PercentageContext.Provider
+                            value={{ percentage, setPercentage }}
+                        >
+                            <HabitsPage />
+                        </PercentageContext.Provider>
                     </UserContext.Provider>
                 </Route>
             </Switch>
             <Switch>
                 <Route path="/hoje">
                     <UserContext.Provider value={user}>
-                        <Today />
+                        <PercentageContext.Provider
+                            value={{ percentage, setPercentage }}
+                        >
+                            <Today />
+                        </PercentageContext.Provider>
                     </UserContext.Provider>
                 </Route>
             </Switch>
             <Switch>
                 <Route path="/historico">
                     <UserContext.Provider value={user}>
-                        <Historic />
+                        <PercentageContext.Provider
+                            value={{ percentage, setPercentage }}
+                        >
+                            <Historic />
+                        </PercentageContext.Provider>
                     </UserContext.Provider>
                 </Route>
             </Switch>
