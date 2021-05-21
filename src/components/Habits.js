@@ -36,7 +36,7 @@ export default function Habits() {
             </AddHabit>
             <AddingHabit>
                 <div hidden={isHidden}>
-                    <CreateHabit />
+                    <CreateHabit addHabit={addHabit} />
                 </div>
             </AddingHabit>
             <ul>

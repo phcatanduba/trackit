@@ -1,22 +1,106 @@
 import styled from 'styled-components';
-import { GrCheckbox } from 'react-icons/gr';
+import axios from 'axios';
+import { useContext, useState } from 'react';
+import UserContext from '../context/UserContext';
 
-export default function CreateHabit() {
+let habitDays = [];
+
+export default function CreateHabit({ addHabit }) {
+    const user = useContext(UserContext);
+    const [habitName, setHabitName] = useState('');
+    const [isDisable, setIsDisable] = useState(false);
+    const [wasClicked, setWasClicked] = useState([
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+    ]);
+    const week = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'];
+    let bgColor = 'white';
+    let txtColor = '#DBDBDB';
+
+    function sendHabit() {
+        const promise = axios.post(
+            'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits',
+            { name: habitName, days: habitDays },
+            {
+                headers: {
+                    Authorization: `Bearer ${user.token}`,
+                },
+            }
+        );
+
+        setIsDisable(true);
+
+        promise.catch(() => {
+            console.log('falha');
+        });
+        promise.then((response) => {
+            setIsDisable(false);
+            addHabit();
+            habitDays = [];
+            setHabitName('');
+            setWasClicked([false, false, false, false, false, false, false]);
+            console.log(response.data);
+        });
+    }
+
     return (
         <>
-            <Input placeholder="nome do habito"></Input>
+            <Input
+                value={habitName}
+                placeholder="nome do habito"
+                onChange={(e) => {
+                    setHabitName(e.target.value);
+                }}
+            ></Input>
             <Week>
-                <WeekDay className="input-day">D</WeekDay>
-                <WeekDay className="input-day">S</WeekDay>
-                <WeekDay className="input-day">T</WeekDay>
-                <WeekDay className="input-day">Q</WeekDay>
-                <WeekDay className="input-day">Q</WeekDay>
-                <WeekDay className="input-day">S</WeekDay>
-                <WeekDay className="input-day">S</WeekDay>
+                {wasClicked.map((boolean, i) => {
+                    return (
+                        <WeekDay
+                            key={i}
+                            className="input-day"
+                            disable={isDisable}
+                            onClick={(e) => {
+                                let array = [...wasClicked];
+                                if (!array[i]) {
+                                    array[i] = true;
+                                    habitDays.push(i + 1);
+                                    setWasClicked(array);
+                                } else {
+                                    array[i] = false;
+                                    habitDays = habitDays.filter(
+                                        (day) => day !== i + 1
+                                    );
+                                    setWasClicked(array);
+                                }
+                            }}
+                            bgColor={!wasClicked[i] ? bgColor : txtColor}
+                            txtColor={!wasClicked[i] ? txtColor : bgColor}
+                        >
+                            {week[i]}
+                        </WeekDay>
+                    );
+                })}
             </Week>
             <Buttons>
-                <Cancel>Cancelar</Cancel>
-                <Save>Salvar</Save>
+                <Cancel
+                    onClick={() => {
+                        addHabit();
+                    }}
+                >
+                    Cancelar
+                </Cancel>
+                <Save
+                    onClick={() => {
+                        sendHabit();
+                    }}
+                >
+                    Salvar
+                </Save>
             </Buttons>
         </>
     );
@@ -30,7 +114,7 @@ const Week = styled.div`
     margin: 0 14px;
 `;
 
-const WeekDay = styled.div`
+const WeekDay = styled.button`
     display: inline-block;
     width: 30px;
     height: 30px;
@@ -40,7 +124,8 @@ const WeekDay = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #dbdbdb;
+    color: ${({ txtColor }) => txtColor};
+    background: ${({ bgColor }) => bgColor};
 `;
 
 const Input = styled.input`
