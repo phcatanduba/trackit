@@ -23,7 +23,6 @@ export default function InputSignUp() {
     }
 
     function handleError(error) {
-        console.log(error);
         enable();
         alert('ERRO AO SE CADASTRAR!!');
     }

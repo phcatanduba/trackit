@@ -39,7 +39,6 @@ export default function CreateHabit({ addHabit, getHabits }) {
 
         promise.catch(() => {
             setIsDisable(false);
-            console.log('falha');
         });
         promise.then((response) => {
             getHabits();
@@ -48,7 +47,6 @@ export default function CreateHabit({ addHabit, getHabits }) {
             habitDays = [];
             setHabitName('');
             setWasClicked([false, false, false, false, false, false, false]);
-            console.log(response.data);
         });
     }
 

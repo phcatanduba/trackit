@@ -33,11 +33,7 @@ export default function Habits() {
         );
 
         promise.then((response) => {
-            console.log(response.data);
             setHabits(response.data);
-        });
-        promise.catch((error) => {
-            console.log('falha, erro ' + error);
         });
     }
 
