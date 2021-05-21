@@ -1,7 +1,7 @@
 import Header from './Header';
 import Menu from './Menu';
 
-export default function Today() {
+export default function History() {
     return (
         <main>
             <Header></Header>

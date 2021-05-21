@@ -2,10 +2,12 @@ import styled from 'styled-components';
 import axios from 'axios';
 import { useContext, useState } from 'react';
 import UserContext from '../context/UserContext';
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
+import Loader from 'react-loader-spinner';
 
 let habitDays = [];
 
-export default function CreateHabit({ addHabit }) {
+export default function CreateHabit({ addHabit, getHabits }) {
     const user = useContext(UserContext);
     const [habitName, setHabitName] = useState('');
     const [isDisable, setIsDisable] = useState(false);
@@ -36,9 +38,11 @@ export default function CreateHabit({ addHabit }) {
         setIsDisable(true);
 
         promise.catch(() => {
+            setIsDisable(false);
             console.log('falha');
         });
         promise.then((response) => {
+            getHabits();
             setIsDisable(false);
             addHabit();
             habitDays = [];
@@ -95,11 +99,16 @@ export default function CreateHabit({ addHabit }) {
                     Cancelar
                 </Cancel>
                 <Save
+                    disabled={isDisable}
                     onClick={() => {
                         sendHabit();
                     }}
                 >
-                    Salvar
+                    {!isDisable ? (
+                        'Salvar'
+                    ) : (
+                        <Loader type="ThreeDots" color="white"></Loader>
+                    )}
                 </Save>
             </Buttons>
         </>
@@ -153,12 +162,19 @@ const Buttons = styled.div`
     button {
         border: none;
     }
+
+    button:disabled {
+        opacity: 0.5;
+    }
 `;
 
 const Cancel = styled.button`
     margin-right: 5px;
     background: none;
     color: #52b6ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 `;
 
 const Save = styled.button`
@@ -167,4 +183,7 @@ const Save = styled.button`
     background: #52b6ff;
     color: white;
     border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 `;

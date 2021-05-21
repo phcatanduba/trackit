@@ -30,7 +30,7 @@ export default function InputLogin({ setUser }) {
 
         promise.then((response) => {
             setUser(response.data);
-            history.push('./hoje');
+            history.push('./habitos');
         });
 
         promise.catch(() => {

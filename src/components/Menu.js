@@ -1,27 +1,34 @@
 import styled from 'styled-components';
 import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
+import { Link } from 'react-router-dom';
 
 export default function Menu() {
     let percentage = 100;
     return (
         <Footer>
             <div className="container">
-                <Habits>Habitos</Habits>
-                <Today>
-                    <CircularProgressbar
-                        background={true}
-                        backgroundPadding={7}
-                        value={percentage}
-                        text="Hoje"
-                        styles={buildStyles({
-                            pathColor: 'white',
-                            textColor: 'white',
-                            backgroundColor: '#52b6ff',
-                        })}
-                    ></CircularProgressbar>
-                </Today>
-                <History>Historico</History>
+                <Link to="/habitos">
+                    <Habits>Habitos</Habits>
+                </Link>
+                <Link to="/hoje">
+                    <Today>
+                        <CircularProgressbar
+                            background={true}
+                            backgroundPadding={7}
+                            value={percentage}
+                            text="Hoje"
+                            styles={buildStyles({
+                                pathColor: 'white',
+                                textColor: 'white',
+                                backgroundColor: '#52b6ff',
+                            })}
+                        ></CircularProgressbar>
+                    </Today>
+                </Link>
+                <Link to="/historico">
+                    <History>Historico</History>
+                </Link>
             </div>
         </Footer>
     );
@@ -37,6 +44,10 @@ const Footer = styled.footer`
     position: fixed;
     bottom: 0;
     left: 0;
+
+    a {
+        text-decoration: none;
+    }
 
     div.container {
         width: 90%;

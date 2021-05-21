@@ -8,8 +8,7 @@ export default function Header() {
     const user = useContext(UserContext);
     let history = useHistory();
 
-    console.log(user.image);
-    if (user.image === undefined) {
+    if (user === undefined) {
         history.push('/');
     }
 
@@ -28,6 +27,7 @@ export default function Header() {
 }
 
 const Top = styled.header`
+    z-index: 10;
     position: fixed;
     top: 0;
     left: 0;
