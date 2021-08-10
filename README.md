@@ -2,9 +2,6 @@
 
 An easy-to-use habits manager. Track your habits to spend less time thinking about what to do and don`t forget anything.
 
->GIF<
-
-Try it out now at LINK DEPLOY 
 
 ## About
 
